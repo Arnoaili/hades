@@ -1,0 +1,468 @@
+{% extends "base.html" %}
+
+{% block title %}
+    flot
+{% endblock %}
+
+{% block list1 %}
+  <!-- {% for obj in project_name %}
+    <li class="{{obj.cls}}"><a href="{{url_for('project_views.flot', value=obj.item)}}">{{obj.item}}</a></li>
+  {% endfor %} -->
+{% endblock %}
+
+{% block list2 %}
+    <!-- {% for item in project_name %}
+        <li><a href="{{url_for('project_views.table', value=item)}}">{{item}}</a></li>
+    {% endfor %} -->
+{% endblock %}value
+
+{% block first %}
+{% endblock %}
+
+{% block second %}
+    active
+{% endblock %}
+
+{% block third %}
+{% endblock %}
+
+{% block last %}
+{% endblock %}
+
+{% block Dashboard %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('project_views.index', department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('project_views.index', department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block tables %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block charts %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block department %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block container %}
+<div class="row-fluid">
+    <!-- <div class="span12">
+        <h3 class="page-title">
+            Charts <small>visual charts & graphs</small>
+        </h3>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="index">Home</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li>
+                <a href="">Charts</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li>
+                <a href="">Flot Charts</a>
+            </li>
+        </ul>
+    </div> -->
+    <div class="header navbar navbar-default">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0">
+        <ul class="nav navbar-nav" id='tables-bar'>
+          {% for obj in project_name %}
+            {% if obj.item in cd_swd1_project %}
+                <li class="{{obj.cls}}"><a href="{{url_for('project_views.flot', value=obj.item, department='cd_swd1')}}">{{obj.item}}</a></li>
+            {% endif %}
+            {% if obj.item in cd_swd2_project %}
+                <li class="{{obj.cls}}"><a href="{{url_for('project_views.flot', value=obj.item, department='cd_swd2')}}">{{obj.item}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<!-- END PAGE HEADER-->
+
+<!-- BEGIN CHART PORTLETS-->
+
+<div class="row-fluid">
+
+    <div class="span12">
+
+        <!-- BEGIN BASIC CHART PORTLET-->
+
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+
+                <div class="caption"><i class="icon-reorder"></i>Total PR in Project life circle</div>
+
+                <div class="tools">
+
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                    <a href="javascript:;" class="remove"></a>
+
+                </div>
+
+            </div>
+
+            <div class="portlet-body" >
+
+                <div class="chart">
+
+                    <div class="flot-chart">
+
+                        <div class="container">
+
+                            <div class="row" >
+
+                                {% line_chart daily with library={
+                                    "title":{"text":"Total PR in Project life circle"},
+                                    "yAxis":{"title":{"text":"Number"}},
+                                    "colors": ["#FFC81A", "#17BA4B", "red"]}
+                                %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- END BASIC CHART PORTLET-->
+
+    </div>
+
+</div>
+
+<!-- END CHART PORTLETS-->
+
+<!-- BEGIN CHART PORTLETS-->
+
+<div class="row-fluid">
+
+    <div class="span12">
+
+        <!-- BEGIN BASIC CHART PORTLET-->
+
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+
+                <div class="caption"><i class="icon-reorder"></i>Daily PR in Project life circle</div>
+
+                <div class="tools">
+
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                    <a href="javascript:;" class="remove"></a>
+
+                </div>
+
+            </div>
+
+            <div class="portlet-body" >
+
+                <div class="chart">
+
+                    <div class="flot-chart">
+
+                        <div class="container">
+
+                            <div class="row" >
+
+                                {% line_chart daily_data with library={
+                                    "title":{"text":"Daily PR in Project life circle"},
+                                    "yAxis":{"title":{"text":"Number"}},
+                                    "colors": ["#FFC81A", "red"]}
+                                %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- END BASIC CHART PORTLET-->
+
+    </div>
+
+</div>
+
+<!-- END CHART PORTLETS-->
+
+<!-- BEGIN CHART PORTLETS-->
+
+<div class="row-fluid">
+
+    <div class="span12">
+
+        <!-- BEGIN BASIC CHART PORTLET-->
+
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+
+                <div class="caption"><i class="icon-reorder"></i>Daily PR About module</div>
+
+                <div class="tools">
+
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                    <a href="javascript:;" class="remove"></a>
+
+                </div>
+
+            </div>
+
+            <div class="portlet-body">
+
+                <div class="chart">
+
+                    <div class="flot-chart">
+
+                        <div class="container">
+
+                            <div class="row">
+
+                                {% column_chart module with min=0 max=50 library={
+                                        "title":{"text":"Daily PR About module"},
+                                        "yAxis":{"max":100,"title":{"text":"Number"}},
+                                "colors": ["#FFC81A", "#17BA4B", "red"]}
+                                %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- END BASIC CHART PORTLET-->
+
+    </div>
+
+</div>
+
+<!-- END CHART PORTLETS-->
+<script type="text/javascript">
+     $(function(){
+         var doms = $('.row-fluid');
+         for (var i = 4; i < doms.length; i++) {
+            var tools = $(doms[i]).find('.tools');
+            var inner = $(tools[0]).children('a');
+            $(inner[0]).attr('class','expand');
+            $(inner[0]).click(function(){
+                var cla = $(this).attr('class');
+                var box = $(this).parent().parent().next();
+                if(cla == 'collapse') {
+                    cla.attr('expand');
+                    box.css('display','none');
+                } else if (cla == 'expand') {
+                    cla.attr('collapse');
+                    box.css('display','block');
+                }
+
+            });
+         };
+     });
+</script>
+{% for team in teams_sort %}
+<div class="row-fluid" field = "22">
+
+    <div class="span12">
+
+        <!-- BEGIN BASIC CHART PORTLET-->
+
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+
+                <div class="caption">
+
+                    <i class="icon-reorder"></i>
+
+                    <strong style="width:50px">{{team}}</strong>
+
+                    (Total Opened:{{teams_total[team][0]}} ,Fixed:{{teams_total[team][1]}} , Regression:{{teams_total[team][2]}})
+
+                </div>
+
+                <div class="tools" field="111">
+
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="#portlet-config" data-toggle="modal" class="config" data-target="#detail-{{team}}"></a>
+
+                    <div class="modal fade" id="detail-{{team}}">
+
+                        <div class="modal-dialog">
+
+                            <div class="modal-content"  style="color: black;width: 800px">
+
+                                <div class="modal-header" style="color: red">
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                    <h1 class="modal-title" id="myModalLabel">Detail about {{team}}</h1>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <table class="table table-striped table-bordered table-hover">
+
+                                        <thead>
+
+                                        <tr>
+
+                                            <th>Name</th>
+                                            <th>P0_open</th>
+                                            <th>P1_open</th>
+                                            <th>P0_fixed</th>
+                                            <th>P1_fixed</th>
+                                            <th>P0_regression</th>
+                                            <th>P1_regression</th>
+                                        </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            {% for i in team_detail[team] %}
+                                            <tr>
+                                                <td>{{i[0]}}</td>
+                                                <td>{{i[1]['P0_open']}}</td>
+                                                <td>{{i[1]['P1_open']}}</td>
+                                                <td>{{i[1]['P0_fixed']}}</td>
+                                                <td>{{i[1]['P1_fixed']}}</td>
+                                                <td>{{i[1]['P0_regression']}}</td>
+                                                <td>{{i[1]['P1_regression']}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                    <a href="javascript:;" class="remove"></a>
+
+                </div>
+
+            </div>
+
+            <div class="portlet-body">
+
+                <div class="container">
+
+                    <div class="row">
+
+                        {% for item in teams[team] %}
+
+                        <div class="col-lg-12">
+
+                            <div class="col-lg-3">
+
+                                {% pie_chart teams[team][item][0] with library={
+                                    "title":{"text":item },
+                                    "plotOptions":{"pie":{"size":150,"dataLabels":{"distance":2,"format":"<b>{point.name}:{point.y}</b>"}}},
+                                    "colors": ["#17BA4B", "#FFC81A","red"]}
+                                %}
+
+                            </div>
+
+                            <div class="col-lg-9">
+
+                                {% column_chart teams[team][item][1] with min=0 max=50 library={
+                                    "title":{"text": team + " " + item + " "+ "PR in all little teams"},
+                                    "plotOptions":{"series":{"pointWidth":"18"}},
+                                    "yAxis":{"max":"80","tickInterval": "40","title":{"text":"Number"}},
+                                    "colors": ["#FFC81A", "#17BA4B","red"]}
+                                %}
+
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endfor %}
+
+{% endblock %}

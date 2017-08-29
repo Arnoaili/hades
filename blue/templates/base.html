@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<meta content="" name="description" />
+
+	<meta content="" name="author" />
+
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/bootstrap-responsive.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/style-metro.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/style.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/style-responsive.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/default.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/uniform.default.css') }}">
+
+	<!-- END GLOBAL MANDATORY STYLES -->
+
+	<!-- BEGIN PAGE LEVEL STYLES -->
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/select2_metro.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/DT_bootstrap.css') }}">
+
+	<!-- END PAGE LEVEL STYLES -->
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='media/image/favicon.ico') }}">
+
+    <!-- ADD FOR flot -->
+    <!-- dataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dataTables.bootstrap.css') }}">
+
+    <!-- MetisMenu CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/metisMenu.min.css') }}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sb-admin-2.css') }}">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/font-awesome.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/to-top.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/jquery-ui.min.css') }}">
+
+
+
+
+
+    <!-- javascript resource -->
+
+    <script src="{{ url_for('static', filename='media/js/jquery-1.10.1.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/jquery-migrate-1.2.1.min.js') }}"></script>
+
+    <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+
+    <script src="{{ url_for('static', filename='media/js/jquery-ui-1.10.1.custom.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/bootstrap.min.js') }}"></script>
+
+    <!--[if lt IE 9]>
+
+    <script src="{{ url_for('static', filename='media/js/excanvas.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/respond.min.js') }}"></script>
+
+    <![endif]-->
+
+    <script src="{{ url_for('static', filename='media/js/jquery.slimscroll.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/jquery.blockui.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/jquery.cookie.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/jquery.uniform.min.js') }}"></script>
+
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+
+    <script src="{{ url_for('static', filename='media/js/select2.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/jquery.dataTables.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/DT_bootstrap.js') }}"></script>
+
+    <!-- END PAGE LEVEL PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+    <script src="{{ url_for('static', filename='media/js/app.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/table-managed.js') }}"></script>
+
+    <!-- ADD FOR FLOT-->
+
+    <!-- highcharts CSS -->
+    <script src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+
+    <!-- chartkick CSS -->
+    <script src="{{ url_for('static', filename='js/chartkick.js') }}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='js/metisMenu.min.js') }}"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/dataTables.bootstrap.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/flot-data.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='media/js/jquery-ui.min.js') }}"></script>
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37564768-1']);
+        _gaq.push(['_setDomainName', 'keenthemes.com']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            //ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
+    </script>
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({
+                showOn: "button",
+                buttonImage: "/static/image/date.png",
+                buttonImageOnly: true
+            });
+
+						$('#datepicker').change(function(){
+							$.post('',{date:$(this).val()},function(data,status){
+								if(data.code == 200) {
+									document.test.submit();
+								} else {
+									alert(data.msg);
+								}
+							},'json');
+						});
+        });
+    </script>
+
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- BEGIN HEADER -->
+
+	<div class="header navbar navbar-inverse navbar-fixed-top">
+
+		<!-- BEGIN TOP NAVIGATION BAR -->
+
+		<div class="navbar-inner">
+
+			<div class="container-fluid">
+
+				<!-- BEGIN LOGO -->
+
+				<a class="navbar-brand" href="#">Bug Statistic</a>
+
+				<!-- END LOGO -->
+				<!-- detail bar of left menu -->
+
+				<!-- BEGIN TOP NAVIGATION MENU -->
+
+				<ul class="nav navbar-nav navbar-right">
+
+					<!-- BEGIN INBOX DROPDOWN -->
+
+                    <li class="dropdown" id="header_inbox_bar">
+
+
+                        <form name="test" method="get">
+                            <p>日期：<input type="text" id="datepicker" name="date" value={{date}}></p>
+                        </form>
+
+                    </li>
+
+
+					<!--<li class="dropdown" id="header_inbox_bar">-->
+
+						<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+
+						<!--<i class="icon-envelope"></i>-->
+
+						<!--</a>-->
+
+						<!--<ul class="dropdown-menu extended inbox">-->
+
+							<!--<li>-->
+
+								<!--<p>You have 12 new messages</p>-->
+
+							<!--</li>-->
+
+							<!--<li class="external">-->
+
+								<!--<a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>-->
+
+							<!--</li>-->
+
+						<!--</ul>-->
+
+					<!--</li>-->
+
+					<!-- END INBOX DROPDOWN -->
+
+					<!-- BEGIN USER LOGIN DROPDOWN -->
+
+					<!--<li class="dropdown">-->
+
+						<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+
+						<!--<i class="icon-user"></i>-->
+
+						<!--</a>-->
+
+						<!--<ul class="dropdown-menu">-->
+
+							<!--<li><a href="extra_profile.html"><i class="icon-user"></i> My Profile</a></li>-->
+
+							<!--<li><a href="page_calendar.html"><i class="icon-cogs"></i> Settings</a></li>-->
+
+							<!--<li class="divider"></li>-->
+
+							<!--<li><a href="login.html"><i class="icon-key"></i> Logout</a></li>-->
+
+						<!--</ul>-->
+
+					<!--</li>-->
+
+					<!-- END USER LOGIN DROPDOWN -->
+
+				</ul>
+
+				<!-- END TOP NAVIGATION MENU -->
+
+			</div>
+
+		</div>
+
+		<!-- END TOP NAVIGATION BAR -->
+
+	</div>
+
+	<!-- END HEADER -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container row-fluid">
+
+		<!-- BEGIN SIDEBAR -->
+
+		<div class="page-sidebar nav-collapse collapse">
+
+			<!-- BEGIN SIDEBAR MENU -->
+
+			<ul class="page-sidebar-menu">
+
+				<li>
+
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+
+					<div class="sidebar-toggler hidden-phone"></div>
+
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+
+				</li>
+
+
+				<li class="{% block first %}{% endblock %}">
+					{% block Dashboard %}
+
+						{% endblock %}
+
+					<i class="icon-home"></i>
+
+					<span class="title">Dashboard</span>
+
+                    <span class="selected"></span>
+
+					</a>
+
+				</li>
+
+
+				<li class="{% block second %}{% endblock %}">
+
+					{% block charts %}
+
+						{% endblock %}
+
+					<i class="icon-bar-chart"></i>
+
+					<span class="title">Charts</span>
+
+                    <span class="selected"></span>
+
+					<!-- <span class="arrow "></span> -->
+
+					</a>
+
+				</li>
+
+				<li class="{% block third %}{% endblock %}">
+
+					{% block department %}
+
+							{% endblock %}
+
+					<i class="icon-bar-chart"></i>
+
+					<span class="title">Department</span>
+
+                    <span class="selected"></span>
+
+					</a>
+
+				</li>
+
+				<li class="{% block last %}{% endblock %}">
+
+					{% block tables %}
+
+						{% endblock %}
+
+					<i class="icon-th"></i>
+
+					<span class="title">Tables</span>
+
+					<span class="selected"></span>
+
+                    <!-- <span class="arrow "></span> -->
+
+					</a>
+
+
+				</li>
+
+			</ul>
+
+			<!-- END SIDEBAR MENU -->
+
+		</div>
+
+		<!-- END SIDEBAR -->
+
+		<!-- BEGIN PAGE -->
+
+		<div class="page-content">
+
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<div id="portlet-config" class="modal hide">
+
+				<div class="modal-header">
+
+					<button data-dismiss="modal" class="close" type="button"></button>
+
+					<h3>portlet Settings</h3>
+
+				</div>
+
+				<div class="modal-body">
+
+					<p>Here will be a configuration form</p>
+
+				</div>
+
+			</div>
+
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+                {% block container %}
+                {% endblock %}
+				<!-- END PAGE HEADER-->
+
+			</div>
+
+			<!-- END PAGE CONTAINER-->
+
+		</div>
+
+		<!-- END PAGE -->
+
+	</div>
+
+	<!-- END CONTAINER -->
+
+	<!-- BEGIN FOOTER -->
+
+	<div class="footer">
+
+
+		<div class="footer-inner">
+
+			2015 &copy; by TCL.
+
+		</div>
+
+		<div class="footer-tools">
+
+			<span class="go-top">
+
+			<i id="top"><img src="{{ url_for('static', filename='image/to-top1.png') }}"/></i>
+
+			</span>
+
+		</div>
+
+	</div>
+
+	<!-- END FOOTER -->
+
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+
+	<!-- BEGIN CORE PLUGINS -->
+
+</body>
+
+<!-- END BODY -->
+
+</html>

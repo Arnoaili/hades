@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}
+    tables
+{% endblock %}
+
+{% block list1 %}
+    <!-- {% for item in project_name %}
+        <li ><a href="{{url_for('project_views.flot', value=item)}}">{{item}}</a></li>
+    {% endfor %} -->
+{% endblock %}
+
+<!-- {% block list2 %}
+    {% for obj in project_name %}
+      <li class="{{obj.cls}}"><a href="{{url_for('project_views.table', value=obj.item)}}">{{obj.item}}</a></li>
+    {% endfor %}
+{% endblock %} -->
+
+{% block first %}
+{% endblock %}
+
+{% block second %}
+{% endblock %}
+
+{% block third %}
+{% endblock %}
+
+{% block last %}
+    active
+{% endblock %}
+
+{% block tables %}
+  <a href="{{url_for('project_views.table', value=default)}}">
+{% endblock %}
+
+{% block charts %}
+  <a href="{{url_for('project_views.flot', value=default)}}">
+{% endblock %}
+
+{% block department %}
+  <a href="{{url_for('department_views.invest', value=department_default)}}">
+{% endblock %}
+
+{% block container %}
+
+
+<div class="row-fluid">
+    <!-- <div class="span12">
+        <h3 class="page-title">
+            Tables <small>managed table samples</small>
+        </h3>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+
+                <a href="index">Home</a>
+
+                <i class="icon-angle-right"></i>
+
+            </li>
+
+            <li><a href="#">Tables</a></li>
+        </ul>
+    </div> -->
+    <div class="header navbar navbar-default">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0">
+        <ul class="nav navbar-nav" id='tables-bar'>
+          {% for obj in project_name %}
+            <li class="{{obj.cls}}"><a href="{{url_for('project_views.tableforspm', value=obj.item)}}">{{obj.item}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<!-- END PAGE HEADER-->
+
+<!-- BEGIN PAGE CONTENT-->
+<div class="row-fluid">
+
+    <div class="span12">
+
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+        <div class="portlet box blue">
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead style="background-color: #b9cbd5">
+                    <tr>
+                        <th><strong>BugID</strong></th>
+                        <th><strong>Branch</strong></th>
+                        <th><strong>Assigner</strong></th>
+                        <th><strong>Summary</strong></th>
+                        <th><strong>Level</strong></th>
+                        <th><strong>Change Assigner and Add Comment</strong></th>
+                        <th><strong>Priority</strong></th>
+                        <th><strong>Status</strong></th>
+                        <th><strong>COMMENT FROM CEA</strong></th>
+                        <th><strong>Type</strong></th>
+                        <th><strong>Reg/Ref</strong></th>
+                        <th><strong>DEADLINE</strong></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for item in result %}
+                   
+                    
+                    <tr id="{{item["bug_id"]}}">
+
+                        <td><a href="https://alm.tclcom.com:7003/im/issues?selection={{item["bug_id"]}}" target="_blank">{{item["bug_id"]}}</a></td>
+                        <td>{{item["branch"]}}</td>
+                        <td>
+                            <a href="#" class="btn btn-success example" rel="popover" data-content="{{item["comments"]}}" data-original-title="COMMENTS">{{item["assigner"]}}</a>
+                        </td>
+                        <!--
+                        <td>
+                        <button type="button" class="btn btn-success" title="Comments"  
+                            data-container="body" data-toggle="popover" data-placement="right" 
+                            data-content="{{item["comments"]}}">
+                            {{item["assigner"]}}
+                        </button>
+                        </td>
+                        -->
+                        <td>{{item["summary"]}}</td>
+                        
+                        <td class="level">
+                            <input type="hidden" name="level" value={{item["level"]}}>
+        
+                            <select class="selectpicker" onchange="submit_level({{item["bug_id"]}});" >
+                                <option >General</option>
+                                <option >Important</option>
+                                <option >Critical</option>
+                            </select>
+                               <!--  <input type="hidden" name='bug_id' value={{item["bug_id"]}}> -->
+                        </td>
+                        
+                        <td><a href="#" onclick="popup_windows({{item["bug_id"]}});">Edit</a></td>
+                        <td>{{item["priority"]}}</td>
+                        <td>{{item["bug_status"]}}</td>
+                        <td>{{item["comment_from_cea"]}}</td>
+                        <td>{{item["type"]}}</td>
+                        <td>{{item["regression"]}}/{{item["val_refuse"]}}</td>
+                        <td>{{item["deadline"]}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+
+        <!-- END EXAMPLE TABLE PORTLET-->
+
+    </div>
+
+</div>
+<form role="form" id="edit_form" method="post">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Assigner and Comment</h4>
+                
+             </div>
+
+            <div class="modal-body">
+ 
+                <div class="form-group">
+                    <label for="assigner">New Assigner</label>
+                    <input type="text" name="assigner" class="form-control" id="assigner" placeholder="New Assigner">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="comment">Add Comment</label>
+                    <input type="text" name="comment" class="form-control" id="comment" placeholder="Add Comment">
+                </div>
+                <div class="form-group">
+                    <label for="bug_id"></label>
+                    <input type="hidden" name="bug_id" id="bug_id" class="form-control" placeholder="Bug_id">
+                </div>
+
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" onclick="edit_submit();">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+<script>
+$(function(){
+    $(".example").each(function(){
+            $(this).popover({trigger: 'focus',html:true});
+         });
+
+    var level_list=$("td.level");
+    level_list.each(function(){
+        var default_level=$(this).find("input").val();
+        var option_list=$(this).find("option");
+        option_list.each(function(){
+            var option_val=$(this).text();
+            if (option_val==default_level){
+                $(this).attr("selected","selected");
+            }
+        });
+
+    });
+
+    $("#dataTables-example_filter input").change(function(){
+        $(".example").each(function(){
+            $(this).popover({trigger: 'focus',html:true});
+         });
+    });
+
+    $(".pagination").click(function (){
+        $(".example").each(function(){
+            $(this).popover({trigger: 'focus',html:true});
+         });
+    });
+
+    $(".pagination").click(function(){
+        var level_list=$("td.level");
+        level_list.each(function(){
+            var default_level=$(this).find("input").val();
+            var option_list=$(this).find("option");
+            option_list.each(function(){
+                var option_val=$(this).text();
+                if (option_val==default_level){
+                    $(this).attr("selected","selected");
+                }
+            });
+
+        });
+
+    });
+
+    
+
+
+    $('#datepicker').remove();
+    $(".ui-datepicker-trigger").remove();
+});
+
+function submit_level(bug_id){
+
+    var level=$("#"+bug_id).find("select").val();
+    
+    $.post('',{level:level,bug_id:bug_id},function(data,status){
+        // if(data.code == 200) {
+        //     // alert("update level success");
+        // }
+        // else{
+        //     alert("update level fail, please try again");
+        //     return;
+        // }
+    },'json');
+   
+
+};
+
+function popup_windows(bug_id){
+
+    $("#myModalLabel").text("新增");
+    $('#myModal').modal();
+    $('#bug_id').val(bug_id);
+
+}
+
+function edit_submit(){
+    $("#edit_form").submit();
+}
+
+
+</script>
+
+
+
+{% endblock %}

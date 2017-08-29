@@ -1,0 +1,8 @@
+flask
+mysql-python
+chartkick
+gunicorn
+flask_restful
+gevent
+flask-sqlalchemy
+flask-script

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Export data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='media/css/define_self.css') }}">
+
+    <!-- javascript resource -->
+
+    <script src="{{ url_for('static', filename='media/js/jquery-1.10.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='media/js/jquery-ui-1.10.1.custom.min.js') }}"></script>
+    <script>
+        $(function() {
+            $( ".date" ).datepicker({
+                showOn: "button",
+                buttonImage: "/static/image/date.png",
+                dateFormat: 'yy-mm-dd',
+                buttonImageOnly: true,
+                showWeek: true,
+                changeYear: true,
+                firstDay: 1,
+                minDate:'2015-10-01',
+                maxDate:'Now',
+                buttonText:"please select the date you need",
+
+        });
+        });
+    </script>
+    <style>
+        .ui-datepicker-year{
+            color: black;
+        }
+
+    </style>
+</head>
+</html>
+
+<body>
+<div>
+    <img style="width: 100%" src="{{ url_for('static', filename='image/b.png') }}">
+</div>
+<div class="export_bg">
+    <div name="title" class="export_title">
+        <span >Export Department Data</span>
+        <!--<h3 style="text-align: center;color:#F0F0F0;font-family: monospace;font-size:200%;">Export Department Data</h3>-->
+    </div>
+
+    <div name="ex_body" class="ex_body">
+        <div name="date_picker" style="width: 100%;">
+            <form name="test" method="post" >
+                <table style="width: 100%;">
+                    <tr style="width: 100%">
+                        <td style="padding-left: 5%">
+                            <p class="date_start">
+                                <span style="font-size: 120%"><b>Start Date：</b></span>
+                                <input  style="color: #003D79" type="text" id="datepicker1" name="date1" value={{startdate}} class="date">
+                            </p>
+                        </td>
+                        <td >
+                            <p class="date_end">
+                                <span style="font-size: 120%;"><b>End Date：</b></span>
+                                <input  style="color: #003D79" type="text" id="datepicker2" name="date2" value={{enddate}} class="date">
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="date_submit">
+                                <input style="color: #003D79" type="submit" value="submit">
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+

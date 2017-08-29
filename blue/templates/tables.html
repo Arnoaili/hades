@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}
+    tables
+{% endblock %}
+
+{% block list1 %}
+    <!-- {% for item in project_name %}
+        <li ><a href="{{url_for('project_views.flot', value=item)}}">{{item}}</a></li>
+    {% endfor %} -->
+{% endblock %}
+
+<!-- {% block list2 %}
+    {% for obj in project_name %}
+      <li class="{{obj.cls}}"><a href="{{url_for('project_views.table', value=obj.item)}}">{{obj.item}}</a></li>
+    {% endfor %}
+{% endblock %} -->
+
+{% block first %}
+{% endblock %}
+
+{% block second %}
+{% endblock %}
+
+{% block third %}
+{% endblock %}
+
+{% block last %}
+    active
+{% endblock %}
+
+{% block Dashboard %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('project_views.index', department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('project_views.index', department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block tables %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block charts %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block department %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block container %}
+
+<div class="row-fluid">
+    <!-- <div class="span12">
+        <h3 class="page-title">
+            Tables <small>managed table samples</small>
+        </h3>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+
+                <a href="index">Home</a>
+
+                <i class="icon-angle-right"></i>
+
+            </li>
+
+            <li><a href="#">Tables</a></li>
+        </ul>
+    </div> -->
+    <div class="header navbar navbar-default">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0">
+        <ul class="nav navbar-nav" id='tables-bar'>
+          {% for obj in project_name %}
+            {% if obj.item in cd_swd1_project %}
+                <li class="{{obj.cls}}"><a href="{{url_for('project_views.table', value=obj.item, department='cd_swd1')}}">{{obj.item}}</a></li>
+            {% endif %}
+            {% if obj.item in cd_swd2_project %}
+                <li class="{{obj.cls}}"><a href="{{url_for('project_views.table', value=obj.item, department='cd_swd2')}}">{{obj.item}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<!-- END PAGE HEADER-->
+
+<!-- BEGIN PAGE CONTENT-->
+<div class="row-fluid">
+
+    <div class="span12">
+
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+
+                <div class="caption"><i class="icon-globe"></i>DataTables Advanced Tables</div>
+
+                <div class="tools">
+
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="#portlet-config" data-toggle="modal" class="config"></a>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                    <a href="javascript:;" class="remove"></a>
+
+                </div>
+
+            </div>
+
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead style="background-color: #b9cbd5">
+                    <tr>
+                        <th><strong>BugID</strong></th>
+                        <th><strong>Branch</strong></th>
+                        <th><strong>Assigner</strong></th>
+                        <th><strong>Priority</strong></th>
+                        <th><strong>Status</strong></th>
+                        <th><strong>COMMENT FROM CEA</strong></th>
+                        <th><strong>Type</strong></th>
+                        <th><strong>Reg/Ref</strong></th>
+                        <th><strong>DEADLINE</strong></th>
+                        <th><strong>Summary</strong></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for item in result %}
+                    <tr>
+                        <td>{{item["bug_id"]}}</td>
+                        <td>{{item["branch"]}}</td>
+                        <td>{{item["assigner"]}}</td>
+                        <td>{{item["priority"]}}</td>
+                        <td>{{item["bug_status"]}}</td>
+                        <td>{{item["comment_from_cea"]}}</td>
+                        <td>{{item["type"]}}</td>
+                        <td>{{item["regression"]}}/{{item["val_refuse"]}}</td>
+                        <td>{{item["deadline"]}}</td>
+                        <td>{{item["summary"]}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+
+        <!-- END EXAMPLE TABLE PORTLET-->
+
+    </div>
+
+</div>
+{% endblock %}

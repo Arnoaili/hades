@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+<!--{% block title %}
+    home
+{% endblock %}-->
+
+{% block list1 %}
+    <!-- {% for item in project_name %}
+        <li ><a href="{{url_for('project_views.flot', value=item)}}">{{item}}</a></li>
+    {% endfor %} -->
+{% endblock %}
+
+{% block list2 %}
+    <!-- {% for item in project_name %}
+        <li ><a href="{{url_for('project_views.table', value=item)}}">{{item}}</a></li>
+    {% endfor %} -->
+{% endblock %}
+
+{% block first %}
+    active
+{% endblock %}
+
+{% block second %}
+{% endblock %}
+
+{% block third %}
+{% endblock %}
+
+{% block last %}
+{% endblock %}
+
+{% block Dashboard %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('project_views.index', department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('project_views.index', department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block tables %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block charts %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block department %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block container %}
+<div class="row" style="margin-left: 20px">
+        <div class="row">
+            <div class="col-lg-11">
+                <h1 class="page-header">Project Task Time</h1>
+            </div>
+            <!-- /.col-lg-11 -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-11">
+
+                {% for project_name in project_status %}
+                <div>
+                    <p>
+                        <strong>{{project_name}}</strong>
+
+                        <span class="pull-right text-muted"><strong>{{project_status[project_name][0]}} %</strong> Complete</span>
+                    </p>
+                    <div class="progress progress-striped  active">
+                        <div class="progress-bar {{project_status[project_name][1]}}" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{project_status[project_name][0]}}% ">
+                            <span class="sr-only">{{project_status[project_name][2]}}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+               <!-- /.div -->
+            </div>
+            <!-- col-lg-8-->
+
+
+            <div class="col-lg-6">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Bug for all Projects
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Total Num</th>
+                                    <th>Task Num</th>
+                                    <th>Defect Num</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set flag=1 %}
+                                {% for key in projects.keys() %}
+                                {% if flag %}
+                                <tr class="info">
+                                    {% set flag=0 %}
+                                    {% else %}
+                                <tr class="warning">
+                                    {% set flag=1 %}
+                                    {% endif %}
+                                    <td><b>{{key}}<b></td>
+                                    {%  for item in total_sort %}
+                                    <td>{{projects[key][item]}}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel panel-default -->  
+            </div>
+
+            <div class="col-lg-5" style="padding: 100px 50px 150px; background:#6C6C6C; color:#ff7575">
+                <h4><strong>Type a bug id in the search box below, then you can get some similar bugs for reference!</strong></h4>
+                <br>
+                <form name="form1" id="form1" method="post" target="myWin">
+                    <input type="text" id="kword" name="bugid" value="bug id" onfocus="if(this.value=='bug id')this.value='';" onblur="if(this.value=='')this.value='bug id';" class="SmallInput" style="color:#A0A0A0;width:200px;"/>
+                    <input name="button" type="button" id="button" value="submit" onclick="btClick()" />
+                </form> 
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+</div>
+        
+
+<script>
+function btClick()
+{
+window.open('window','myWin','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=300,directories=yes');
+form1.action="window"
+form1.submit();
+} 
+</script>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}
+    flot
+{% endblock %}
+
+{% block list1 %}
+    <!-- {% for item in project_name %}
+        <li><a href="{{url_for('project_views.flot', value=item)}}">{{item}}</a></li>
+    {% endfor %} -->
+{% endblock %}
+
+{% block list2 %}
+    <!-- {% for item in project_name %}
+        <li><a href="{{url_for('project_views.table', value=item)}}">{{item}}</a></li>
+    {% endfor %} -->
+{% endblock %}
+
+{% block first %}
+{% endblock %}
+
+{% block second %}
+{% endblock %}
+
+{% block third %}
+{% endblock %}
+
+{% block last %}
+{% endblock %}
+
+{% block Dashboard %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('project_views.index', department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('project_views.index', department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block tables %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.table', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.table', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block charts %}
+    {% if default in cd_swd1_project or default == "CD_SWD1_All_projects" %}
+        {% if default == "CD_SWD1_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd1_project[0], department='cd_swd1')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd1')}}">
+        {% endif %}
+    {% endif %}
+    {% if default in cd_swd2_project or default == "CD_SWD2_All_projects" %}
+        {% if default == "CD_SWD2_All_projects" %}
+            <a href="{{url_for('project_views.flot', value=cd_swd2_project[0], department='cd_swd2')}}">
+        {% else %}
+            <a href="{{url_for('project_views.flot', value=default, department='cd_swd2')}}">
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block department %}
+    {% if department=='cd_swd1' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd1')}}">
+    {% endif %}
+    {% if department=='cd_swd2' %}
+        <a href="{{url_for('department_views.invest', value=department_default, department='cd_swd2')}}">
+    {% endif %}
+{% endblock %}
+
+{% block container %}
+<div class="page-404" >
+    <img class="number" src="{{ url_for('static', filename='image/error.jpg') }}" style="margin: 50px 400px 50px 400px">
+</div>
+
+<div class="page-404-full-page">
+    <h1 style="color:green">该时间点未获取到数据，你可以选择该日期前最近的<em>{{coodate}}</em></h1>
+    <h1>Note <small>There is something wrong with the website,maybe you can deal with actions as follows:</small></h1>
+    <ul style="font-size: large;">
+        <li>The website start work at 2015.10.30,and the statistical data will be updated at 18:00 every day!</li>
+        <li>Refresh the website with F5.</li>
+        <li>Any questions ,please contact with integration team guys,thanks.</li>
+    </ul>
+</div>
+
+<!-- END PAGE HEADER-->
+
+{% endblock %}
